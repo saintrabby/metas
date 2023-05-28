@@ -2,25 +2,37 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRecoilState } from 'recoil'
 import { myAtoms } from '@/recoils/recoilRed'
+import BlockChar from './BlockChar'
 
 const BlockWorld = () => {
 
 	const [recMap, setRecMap] = useRecoilState(myAtoms.myMap)
+	const [myPos, setMyPos] = useRecoilState(myAtoms.CharPos)
 
-	console.log('hi BlockWorld!')
+	// console.log('hi BlockWorld!')
 
 	const makingField = () => {
 		let blocks = []
 
 		for (let j = 19; j >= 0; j--) {
 			for (let i = 0; i < 20; i++) {
-				blocks.push(
-					<Block
-						key={j * 20 + i}
-						pos={{ x: i, y: j }}
-						pass={true}
-						onClick={(e) => console.log({ x: i, y: j })}
-					/>)
+				if (myPos.x === i && myPos.y === j)
+					blocks.push(
+						<Block
+							style={{ backgroundColor: '#333' }}
+							key={j * 20 + i}
+							pos={{ x: i, y: j }}
+							pass={true}
+							onClick={(e) => console.log({ x: i, y: j })}
+						/>)
+				else
+					blocks.push(
+						<Block
+							key={j * 20 + i}
+							pos={{ x: i, y: j }}
+							pass={true}
+							onClick={(e) => console.log({ x: i, y: j })}
+						/>)
 			}
 		}
 
@@ -28,13 +40,13 @@ const BlockWorld = () => {
 	}
 
 	useEffect(() => {
-		if (recMap.length === 0)
-			makingField()
-	}, [])
+		makingField()
+	}, [myPos.x, myPos.y])
 
 	return (
 		<BlockWrap>
 			{recMap == [] ? <div>Loading</div> : recMap}
+			<BlockChar />
 		</BlockWrap>
 	)
 }
