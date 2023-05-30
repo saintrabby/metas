@@ -26,7 +26,7 @@ const BlockChar = () => {
 					if (myPos.x < 19)
 						setMyPos({ x: myPos.x + 1, y: myPos.y });
 					return;
-				default: console.log('noArrow'); return;
+				default: return;
 			}
 		}
 

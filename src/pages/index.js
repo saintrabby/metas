@@ -8,6 +8,9 @@ import BlockWorld from '@/components/BlockWorld'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+	console.log('ver 0.1')
+
 	return (
 		<>
 			<Head>

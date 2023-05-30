@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import { useRecoilState } from 'recoil'
 import { myAtoms } from '@/recoils/recoilRed'
 import BlockChar from './BlockChar'
+import Image from 'next/image'
+import { get, onValue, ref } from 'firebase/database'
+
+import slime1 from '../pic/1-1.png'
 
 const BlockWorld = () => {
 
@@ -19,12 +23,13 @@ const BlockWorld = () => {
 				if (myPos.x === i && myPos.y === j)
 					blocks.push(
 						<Block
-							style={{ backgroundColor: '#333' }}
 							key={j * 20 + i}
 							pos={{ x: i, y: j }}
 							pass={true}
 							onClick={(e) => console.log({ x: i, y: j })}
-						/>)
+						>
+							<Image src={slime1} alt='testpic' priority={true} />
+						</Block>)
 				else
 					blocks.push(
 						<Block
