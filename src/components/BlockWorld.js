@@ -4,9 +4,11 @@ import { useRecoilState } from 'recoil'
 import { myAtoms } from '@/recoils/recoilRed'
 import BlockChar from './BlockChar'
 import Image from 'next/image'
-import { get, onValue, ref } from 'firebase/database'
+// import { get, onValue, ref } from 'firebase/database'
 
 import slime1 from '../pic/1-1.png'
+import { ref, set } from 'firebase/database'
+import { realDB } from '@/firedb/fireConfig'
 
 const BlockWorld = () => {
 
@@ -44,14 +46,31 @@ const BlockWorld = () => {
 		setRecMap(blocks)
 	}
 
+	const butt = () => {
+		let chats = [
+			{ anik: 'user', bmsg: 'hi' },
+			{ anik: 'user', bmsg: 'hello' },
+		]
+
+		set(ref(realDB, `/fbmt/chat`), chats)
+	}
+
 	useEffect(() => {
 		makingField()
+
+		// return () => {
+		// 	let dbref = ref(realDB)
+		// 	remove(ref(realDB, 'fbch/ids/' + idnumber))
+		// 	off(dbref)
+		// }
 	}, [myPos.x, myPos.y])
 
 	return (
 		<BlockWrap>
 			{recMap == [] ? <div>Loading</div> : recMap}
 			<BlockChar />
+
+			<button onClick={butt} style={{ width: '100px', height: '20px', marginLeft: '32px' }}>butt</button>
 		</BlockWrap>
 	)
 }
@@ -67,14 +86,14 @@ const BlockWrap = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 640px;
-  height: 640px;
+  width: 600px;
+  height: 600px;
 `
 
 const Block = styled.div`
-  width: 32px;
-  height: 32px;
-  border: 1px solid grey;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #222;
 	display: flex;
 	align-items: center;
 	justify-content: center;

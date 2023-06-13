@@ -4,12 +4,39 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import styled from 'styled-components'
 import BlockWorld from '@/components/BlockWorld'
+import { useEffect } from 'react'
+import { child, get, onValue, ref } from 'firebase/database'
+import { getFbRoot, realDB } from '../firedb/fireConfig'
+import { myFB } from '@/firedb/fbFunc'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
 	console.log('ver 0.1')
+
+	const dbtest = async () => {
+		let mydb = ref(realDB)
+
+		// console.log('db : ', mydb)
+
+		// onValue(mydb, () => {
+		// 	console.log('val')
+		// 	get(child(mydb, `/`))
+		// 		.then((res) => console.log('r : ', res.val()))
+		// 		.catch((err) => console.log('e : ', err))
+		// })
+
+		let a = await myFB.fbChat()
+
+		console.log('async : ', a.val())
+
+		// console.log(await getFbRoot())
+	}
+
+	useEffect(() => {
+		dbtest()
+	}, [])
 
 	return (
 		<>
